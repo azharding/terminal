@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Terminal</title>
+</head>
+<body>
+    <div>
+        <textarea id="command" rows="4" cols="50"></textarea>
+        <button onclick="executeCommand()">Execute</button>
+    </div>
+    <pre id="output"></pre>
+
+    <script>
+        async function executeCommand() {
+            const command = document.getElementById('command').value;
+            const response = await fetch('/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command })
+            });
+            const result = await response.json();
+            document.getElementById('output').textContent = result.output + result.error;
+        }
+    </script>
+</body>
+</html>
