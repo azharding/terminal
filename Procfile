@@ -1,2 +1,2 @@
 worker: yarn install && yarn dev
-web: gunicorn app:index.html
+web: gunicorn app:app
